@@ -1,13 +1,15 @@
 # jaq
 jaq is a scriptable, command-line tool for working with JSON endpoints. Get, put, filter, and print JSON to and from URLs. Take the output from one JSON endpoint, filter it, and and pipe it out to another all from the command line.
 
+[![Build Status](https://travis-ci.com/Ericsson/jaq.svg?branch=master)](https://travis-ci.com/Ericsson/jaq)
+
 ## Installation
 
 1. Clone the repo & run `go install`
 2. Setup a small config file at ~/.jaq.json:
 3. Run commands!
 ```
-go get github.com/jaq && go install
+go get github.com/Ericsson/jaq && go install
 cat '{"domain":"jsonplaceholder.typicode.com"}' > ~/.jaq.json
 jaq get /posts
 ```

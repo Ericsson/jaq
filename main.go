@@ -14,7 +14,7 @@
 
 package main
 
-import "github.com/ericsson/jaq/cmd"
+import "github.com/Ericsson/jaq/cmd"
 
 func main() {
 	cmd.Execute()
