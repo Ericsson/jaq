@@ -112,17 +112,13 @@ func execute(args []string, pipeFrom io.Reader) error {
 	return nil
 }
 
-func init() {
-	manualInit()
-}
-
-func manualInit() {
+func ResetSettings() {
 	RootCmd.ResetCommands()
 	RootCmd.ResetFlags()
 	viper.Reset()
 
 	addFlags(RootCmd.PersistentFlags())
-	manualInitHTTPVerbs()
+	ResetSettingsHTTPVerbs()
 
 	// Explicitly loading config now so that we can get config and explode.
 	// Config is needed in order to properly load the right config file which
@@ -188,10 +184,9 @@ func initConfig(cfgFile string) {
 	viper.SetEnvKeyReplacer(replacer)
 	viper.AutomaticEnv()
 
-	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err != nil {
 		log.Printf("Error reading config: %v", err)
 		log.Print("jaq not configured; expects either $HOME/.jaq.json or a config at the path specified via --config")
-		os.Exit(-1)
+		os.Exit(1)
 	}
 }

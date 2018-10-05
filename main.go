@@ -17,5 +17,6 @@ package main
 import "github.com/Ericsson/jaq/cmd"
 
 func main() {
+	cmd.ResetSettings()
 	cmd.Execute()
 }

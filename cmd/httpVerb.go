@@ -313,10 +313,10 @@ func copyNewline(w io.Writer, r io.Reader, copyHeaders http.Header) (n int64, er
 }
 
 func init() {
-	manualInitHTTPVerbs()
+	ResetSettingsHTTPVerbs()
 }
 
-func manualInitHTTPVerbs() {
+func ResetSettingsHTTPVerbs() {
 	for _, cmd := range []*cobra.Command{
 		httpCommand(http.MethodGet),
 		httpCommand(http.MethodPut),
