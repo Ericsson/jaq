@@ -20,7 +20,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ericsson/jaq/transform"
+	"github.com/Ericsson/jaq/transform"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
