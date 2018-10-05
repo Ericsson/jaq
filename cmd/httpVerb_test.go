@@ -345,7 +345,7 @@ func TestHTTPVerbs(t *testing.T) {
 			defer s.Close()
 
 			// Reset all viper/flag settings potentially loaded.
-			manualInit()
+			ResetSettings()
 			viper.Set("scheme", "http")
 			viper.Set("domain", s.Listener.Addr().String())
 			viper.Set("subdomain", "")
