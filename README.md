@@ -1,16 +1,23 @@
 # jaq
-jaq is a scriptable, command-line tool for working with JSON endpoints. Get, put, filter, and print JSON to and from URLs. Take the output from one JSON endpoint, filter it, and and pipe it out to another all from the command line.
+CLI tool for chaining JSON API requests.
 
 [![Build Status](https://travis-ci.com/Ericsson/jaq.svg?branch=master)](https://travis-ci.com/Ericsson/jaq)
+
+jaq simplifies running multiple, related API commands such as getting IDs or other fields from one endpoint for use in another query.
+ - Uses a config file to avoid repetition on the command-line
+ - Set URL paths, query strings, or headers
+ - Pipe output from one endpoint to another
+ - Ability to "explode" a JSON list into separate elements for separate processing
 
 ## Installation
 
 1. Clone the repo & run `go install`
 2. Setup a small config file at ~/.jaq.json:
 3. Run commands!
-```
+
+```bash
 go get github.com/Ericsson/jaq && go install
-cat '{"domain":"jsonplaceholder.typicode.com"}' > ~/.jaq.json
+echo '{"domain":"jsonplaceholder.typicode.com"}' > ~/.jaq.json
 jaq get /posts
 ```
 
@@ -20,18 +27,22 @@ Although not a requirement, jaq works really well if you are using [jq](https://
 
 These examples assume you are have the jq tool available since we do not try to duplicate its capabilities.
 
-```
+> **NOTE**
+> jaq consumes the `$` as a special character so the commands below escape it so it is not consumed by your shell.
+
+```bash
 # Examples assume config file
-cat '{"domain":"jsonplaceholder.typicode.com"}' > ~/.jaq.json
+echo '{"domain":"jsonplaceholder.typicode.com"}' > ~/.jaq.json
 
 # Get objects from an endpoint
 jaq get /posts
 
-# Delete all the objects by id
-jaq get /posts | jaq delete /posts/${1.id}
+# Delete all the objects by id which have userId == 3
+jaq get /posts | jq -c '.[] | select(.userId == 3)' | jaq delete /posts/\${1.id}
 
 # Get comments from the 3 most recent posts
-jaq get /posts | jq -c .[-3:] | jaq get /comments -q postId=${1.id}
+jaq get /posts | jq -c .[-3:] | jaq get /comments -q postId=\${1.id}
+
 ```
 
 ## Configuration
